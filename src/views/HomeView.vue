@@ -12,14 +12,23 @@ import Post from "../components/Post.vue";
 export default {
   components: { Post },
   setup() {
-    const post = ref([
-      {
-        title: "welcome to the Pong blog",
-        body: "heh There thanks for visiting us",
-        id: 1,
-      },
-      { title: "Top 5 css tips", body: "Learn css by created", id: 2 },
-    ]);
+    const post = ref([]);
+    const err = ref("");
+
+    const load = async () => {
+      try {
+        let data = await fetch("https://jsonplaceholder.typicode.com/posts");
+        if (!data.ok) {
+          throw Error("No Data Avialable");
+        }
+        // console.log(await data.json());
+        post.value = await data.json();
+      } catch (errr) {
+        err.value = errr.message;
+        console.log(err.value);
+      }
+    };
+    load();
     return { post };
   },
   components: { Post },
