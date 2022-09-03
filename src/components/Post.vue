@@ -16,4 +16,6 @@ export default {
 </script>
 
 <style>
+.post-list {
+}
 </style>
